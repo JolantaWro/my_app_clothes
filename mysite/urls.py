@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls.static import static
-from django.conf import settings
+from clothes.views import LandingPage, Register, Login, DonationAdd
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', LandingPage.as_view(), name="index"),
+    path('user_register', Register.as_view(), name="user_register"),
+    path('user_login', Login.as_view(), name="user_login"),
+    path('donation_add', DonationAdd.as_view(), name="donation_add"),
 ]
-# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
