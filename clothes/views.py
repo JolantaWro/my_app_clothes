@@ -1,9 +1,11 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Permission
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.views import View
 from clothes.models import Donation
-from clothes.forms import FormRegister
+from clothes.forms import FormRegister, FormLogin
 
 
 class LandingPage(View):
@@ -80,7 +82,29 @@ class Register(View):
 
 class Login(View):
     def get(self, request):
-        return render(request, 'login.html')
+        form = FormLogin()
+        return render(request, 'login.html', {'form': form})
+
+    def post(self, request):
+        form = FormLogin(request.POST)
+        if form.is_valid():
+            password = form.cleaned_data.get('password')
+            username = form.cleaned_data.get('mail')
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect('index')
+
+            else:
+                form.add_error(None, 'Błąd logowania')
+                return redirect('user_register')
+        return redirect('index')
+
+
+class Logout(LoginRequiredMixin, View):
+    def get(self, request):
+        logout(request)
+        return redirect('index')
 
 
 class DonationAdd(View):
