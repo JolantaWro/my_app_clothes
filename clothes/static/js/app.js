@@ -252,4 +252,29 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
+
+  const institution = document.querySelectorAll(".form-group--checkbox");
+  console.log(institution)
+
+
+
+  institution.forEach(function (element) {
+    element.addEventListener("mouseover", function (event) {
+      console.log("in", event);
+    });
+    element.addEventListener("mouseout", function (event) {
+      console.log("out", event);
+    });})
+
+  // function viewInstitution(value){
+  //       const result = [];
+  //       value.forEach(element => {
+  //           if (element.checked) {
+  //               result.push(element.innerHTML);
+  //               console.log(result)
+  //           }
+  //       })}
+  //
+  //
+  // institution.forEach(element => element.addEventListener("click", viewInstitution));
 });
