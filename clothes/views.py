@@ -5,6 +5,9 @@ from clothes.models import Donation
 
 class LandingPage(View):
     def get(self, request):
+        foundations = Donation.objects.filter(institution__type=1)
+        organizations_non_governmenta = Donation.objects.filter(institution__type=2)
+        local_collection = Donation.objects.filter(institution__type=3)
         quantity_sum = 0
         institution_sum = 0
         quantity_for_sum = Donation.objects.values_list('quantity', flat=True)
@@ -21,6 +24,9 @@ class LandingPage(View):
                 institution_sum += 1
 
         cnx = {
+            "local_collection": local_collection,
+            "organizations_non_governmenta": organizations_non_governmenta,
+            "foundations": foundations,
             "quantity_sum": quantity_sum,
             "institution_sum": institution_sum,
         }
