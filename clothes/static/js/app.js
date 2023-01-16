@@ -253,18 +253,26 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
-  const institution = document.querySelectorAll(".form-group--checkbox");
-  console.log(institution)
+  const choiceElement = document.querySelectorAll("#choice");
+  const institutionElement = document.querySelectorAll("#institution");
+  console.log(institutionElement)
+  let clickCount = 0;
 
+   choiceElement.forEach(function (element){
+     element.addEventListener("click", function (event){
+       clickCount += 1;
+       console.log("Liczba kliknięć", clickCount);
+        console.log('Category.id:', event.target.value);
+     })
+   })
 
-
-  institution.forEach(function (element) {
-    element.addEventListener("mouseover", function (event) {
-      console.log("in", event);
-    });
-    element.addEventListener("mouseout", function (event) {
-      console.log("out", event);
-    });})
+  // choiceElement.addEventListener("click", function (event){
+  //       if (!this.checked) {
+  //            divElement.style.display = "none";
+  //       } else {
+  //            divElement.style.display = "block";
+  //       }
+  //   });
 
   // function viewInstitution(value){
   //       const result = [];
