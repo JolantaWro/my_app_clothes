@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Permission
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.views import View
-from clothes.models import Donation, Category
+from clothes.models import Donation, Category, Institution
 from clothes.forms import FormRegister, FormLogin
 
 
@@ -110,5 +110,11 @@ class Logout(LoginRequiredMixin, View):
 class DonationAdd(LoginRequiredMixin, View):
     def get(self, request):
         categories = Category.objects.all()
-        return render(request, 'form.html', {'categories': categories})
+        institutions = Institution.objects.all()
+        cnx = {
+            'categories': categories,
+            'institutions': institutions,
+        }
+
+        return render(request, 'form.html', cnx)
 
