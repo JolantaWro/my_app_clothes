@@ -255,16 +255,61 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const choiceElement = document.querySelectorAll("#choice");
   const institutionElement = document.querySelectorAll("#institution");
-  console.log(institutionElement)
-  let clickCount = 0;
+  const categoryId = document.querySelectorAll("#category_id")
+  // institutionElement.style.display = "none";
+  // console.log(institutionElement)
 
-   choiceElement.forEach(function (element){
+  const listChoice = [];
+
+  choiceElement.forEach(function (element){
      element.addEventListener("click", function (event){
-       clickCount += 1;
-       console.log("Liczba kliknięć", clickCount);
-        console.log('Category.id:', event.target.value);
+       if (element.checked) {
+         listChoice.push(parseInt(event.target.value));
+       }
      })
    })
+  institutionElement.forEach(function (element){
+    element.style.display = "block"
+  })
+
+  institutionElement.forEach(function (elementDiv){
+    console.log(listChoice);
+    console.log(elementDiv.dataset.id)
+    // if (listChoice.includes(parseInt(elementDiv.dataset.id))) {
+    //   elementDiv.style.display = "block"
+    // } else {
+    //   elementDiv.style.display = "none"
+    // }
+  })
+
+  // categoryId.forEach(function (element) {
+  //   console.log(parseInt(element.dataset.id));
+  //   if (listChoice.includes(parseInt(element.dataset.id))) {
+  //     institutionElement.style.display = "block"
+  //   } else {
+  //     institutionElement.style.display = "none"
+  //   }
+  // })
+
+
+
+
+  // categoryId.forEach(function (element) {
+  //   console.log(element.dataset.id)
+  //   if (listChoice.includes(element.dataset.id)) {
+  //     institutionElement.forEach(element => element.style.display = "none")
+  //   } else {
+  //     institutionElement.forEach(element => element.style.display = "block")
+  //   }
+  // })
+
+   // choiceElement.forEach(function (element){
+   //   element.addEventListener("click", function (event){
+   //     clickCount += 1;
+   //     console.log("Liczba kliknięć", clickCount);
+   //      console.log('Category.id:', event.target.value);
+   //   })
+   // })
 
   // choiceElement.addEventListener("click", function (event){
   //       if (!this.checked) {
@@ -274,15 +319,4 @@ document.addEventListener("DOMContentLoaded", function() {
   //       }
   //   });
 
-  // function viewInstitution(value){
-  //       const result = [];
-  //       value.forEach(element => {
-  //           if (element.checked) {
-  //               result.push(element.innerHTML);
-  //               console.log(result)
-  //           }
-  //       })}
-  //
-  //
-  // institution.forEach(element => element.addEventListener("click", viewInstitution));
 });

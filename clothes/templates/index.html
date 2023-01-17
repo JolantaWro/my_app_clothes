@@ -74,7 +74,7 @@
                 <div class="title">{{ institution.institution.name }}</div>
                 <div class="subtitle">{{ institution.institution.description }}</div>
               </div>
-              <div class="col"><div class="text">{{ institution.categories.name }}</div></div>
+              <div class="col"><div class="text">{% for category in institution.categories.all %} {{ category.name }} {% endfor %}</div></div>
             </li>
           </ul>
        {% endfor %}
@@ -101,7 +101,7 @@
                 <div class="title">{{ institution.institution.name }}</div>
                 <div class="subtitle">{{ institution.institution.description }}</div>
               </div>
-              <div class="col"><div class="text">{{ institution.categories.name }}</div></div>
+              <div class="col"><div class="text">{% for category in institution.categories.all %} {{ category.name }} {% endfor %}</div></div>
             </li>
           </ul>
        {% endfor %}
@@ -126,8 +126,7 @@
                 <div class="title">{{ institution.institution.name }}</div>
                 <div class="subtitle">{{ institution.institution.description }}</div>
               </div>
-
-              <div class="col"><div class="text">{{ institution.categories.name }}</div></div>
+              <div class="col"><div class="text">{% for category in institution.categories.all %} {{ category.name }} {% endfor %}</div></div>
             </li>
           </ul>
        {% endfor %}
