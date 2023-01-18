@@ -264,23 +264,39 @@ document.addEventListener("DOMContentLoaded", function() {
   choiceElement.forEach(function (element){
      element.addEventListener("click", function (event){
        if (element.checked) {
-         listChoice.push(parseInt(event.target.value));
+         // listChoice.push(parseInt(event.target.value));
+         listChoice.push((event.target.value));
        }
      })
    })
-  institutionElement.forEach(function (element){
-    element.style.display = "block"
-  })
+  console.log(listChoice)
 
-  institutionElement.forEach(function (elementDiv){
-    console.log(listChoice);
-    console.log(elementDiv.dataset.id)
+
+
+
+  // for (let i = 0; i < institutionElement.length; i++) {
+  //   console.log(typeof institutionElement[i].dataset.id)
+  //   // console.log((parseInt(institutionElement[i].dataset.id)))
+  //   // if (listChoice.includes(parseInt(institutionElement[i].dataset.id))) {
+  //   if (listChoice.includes((institutionElement[i].dataset.id))) {
+  //     console.log("cos tu jest")
+  //     // institutionElement[i].style.display = "block"
+  //   } else {
+  //   //   console.log(listChoice)
+  //     console.log("nic nie ma")
+  //   //   // institutionElement[i].style.display = "none"
+  //   }
+  // }
+  //
+  // institutionElement.forEach(function (elementDiv){
+    // console.log(listChoice);
+    // console.log(elementDiv.dataset.id)
     // if (listChoice.includes(parseInt(elementDiv.dataset.id))) {
     //   elementDiv.style.display = "block"
     // } else {
     //   elementDiv.style.display = "none"
     // }
-  })
+  // })
 
   // categoryId.forEach(function (element) {
   //   console.log(parseInt(element.dataset.id));
@@ -291,9 +307,6 @@ document.addEventListener("DOMContentLoaded", function() {
   //   }
   // })
 
-
-
-
   // categoryId.forEach(function (element) {
   //   console.log(element.dataset.id)
   //   if (listChoice.includes(element.dataset.id)) {
@@ -303,20 +316,5 @@ document.addEventListener("DOMContentLoaded", function() {
   //   }
   // })
 
-   // choiceElement.forEach(function (element){
-   //   element.addEventListener("click", function (event){
-   //     clickCount += 1;
-   //     console.log("Liczba kliknięć", clickCount);
-   //      console.log('Category.id:', event.target.value);
-   //   })
-   // })
-
-  // choiceElement.addEventListener("click", function (event){
-  //       if (!this.checked) {
-  //            divElement.style.display = "none";
-  //       } else {
-  //            divElement.style.display = "block";
-  //       }
-  //   });
 
 });
