@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Current slide
       this.currentSlide = $btn.parentElement.dataset.id;
 
+
       // Slides active class change
       this.$slidesContainers.forEach(el => {
         el.classList.remove("active");
@@ -254,67 +255,29 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   const choiceElement = document.querySelectorAll("#choice");
-  const institutionElement = document.querySelectorAll("#institution");
+  const institutionElements = document.querySelectorAll("#institution");
   const categoryId = document.querySelectorAll("#category_id")
   // institutionElement.style.display = "none";
   // console.log(institutionElement)
 
-  const listChoice = [];
+  const selectedCategories = [];
 
   choiceElement.forEach(function (element){
      element.addEventListener("click", function (event){
        if (element.checked) {
-         // listChoice.push(parseInt(event.target.value));
-         listChoice.push((event.target.value));
+         // selectedCategories.push(parseInt(event.target.value));
+         selectedCategories.push((event.target.value));
        }
      })
    })
-  console.log(listChoice)
 
 
-
-
-  // for (let i = 0; i < institutionElement.length; i++) {
-  //   console.log(typeof institutionElement[i].dataset.id)
-  //   // console.log((parseInt(institutionElement[i].dataset.id)))
-  //   // if (listChoice.includes(parseInt(institutionElement[i].dataset.id))) {
-  //   if (listChoice.includes((institutionElement[i].dataset.id))) {
-  //     console.log("cos tu jest")
-  //     // institutionElement[i].style.display = "block"
-  //   } else {
-  //   //   console.log(listChoice)
-  //     console.log("nic nie ma")
-  //   //   // institutionElement[i].style.display = "none"
-  //   }
-  // }
-  //
-  // institutionElement.forEach(function (elementDiv){
-    // console.log(listChoice);
-    // console.log(elementDiv.dataset.id)
-    // if (listChoice.includes(parseInt(elementDiv.dataset.id))) {
-    //   elementDiv.style.display = "block"
-    // } else {
-    //   elementDiv.style.display = "none"
-    // }
-  // })
-
-  // categoryId.forEach(function (element) {
-  //   console.log(parseInt(element.dataset.id));
-  //   if (listChoice.includes(parseInt(element.dataset.id))) {
-  //     institutionElement.style.display = "block"
-  //   } else {
-  //     institutionElement.style.display = "none"
-  //   }
-  // })
-
-  // categoryId.forEach(function (element) {
-  //   console.log(element.dataset.id)
-  //   if (listChoice.includes(element.dataset.id)) {
-  //     institutionElement.forEach(element => element.style.display = "none")
-  //   } else {
-  //     institutionElement.forEach(element => element.style.display = "block")
-  //   }
-  // })
-
-
+  institutionElements.forEach(function (elementDiv){
+    const institutionCategories = elementDiv.dataset.id.split(" ")
+    if (selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
+      elementDiv.style.display = "block"
+    } else {
+      elementDiv.style.display = "none"
+    }
+  })
 });
