@@ -8,6 +8,10 @@ class Category(models.Model):
    def __str__(self):
        return self.name
 
+   class Meta:
+      verbose_name = "Category"
+      verbose_name_plural = "Kategorie"
+
 
 TYPE_INSTITUTION = (
    (1, "Fundacja"),
@@ -17,6 +21,7 @@ TYPE_INSTITUTION = (
 
 
 class Institution(models.Model):
+
    name = models.CharField(max_length=255)
    description = models.TextField(null=True, blank=True)
    type = models.IntegerField(choices=TYPE_INSTITUTION, default=1)
@@ -24,6 +29,10 @@ class Institution(models.Model):
 
    def __str__(self):
        return self.name
+
+   class Meta:
+      verbose_name = "Institution"
+      verbose_name_plural = "Instytucje"
 
 
 class Donation(models.Model):
@@ -38,4 +47,8 @@ class Donation(models.Model):
    pick_up_time = models.TimeField()
    pick_up_comment = models.TextField(null=True, blank=True)
    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, default=None)
+
+   class Meta:
+      verbose_name = "Donation"
+      verbose_name_plural = "Darowizny"
 

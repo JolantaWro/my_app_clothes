@@ -63,8 +63,6 @@ document.addEventListener("DOMContentLoaded", function() {
     changePage(e) {
       e.preventDefault();
       const page = e.target.dataset.page;
-
-      console.log(page);
     }
   }
   const helpSection = document.querySelector(".help");
@@ -177,8 +175,44 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions = form.querySelectorAll(".form--steps-instructions p");
       const $stepForms = form.querySelectorAll("form > div");
       this.slides = [...this.$stepInstructions, ...$stepForms];
-
       this.init();
+
+      // this.$choiceElement = form.querySelectorAll("#choice");
+      // const choiceElement = form.querySelectorAll("#choice");
+      // console.log(choiceElement)
+
+      // const $selectedCategories = [];
+
+
+
+
+      // this.$choiceElement.forEach(function (element) {
+      //   element.addEventListener("click", function (event) {
+      //     if (element.checked) {
+      //       $selectedCategories.push(event.target.value)
+      //     }
+      //   })
+      // })
+
+
+      // console.log($selectedCategories)
+      // this.$listChecked = $selectedCategories
+      // const institutionElements = form.querySelectorAll("#institution");
+      //
+      // institutionElements.forEach(function (elementDiv){
+      //   elementDiv.style.display = "block"
+      //   const institutionCategories = [...elementDiv.dataset.id.split(" ")]
+      //   // console.log('element div', elementDiv)
+      //   // console.log('jedna instytucja, data set id', institutionCategories)
+      //   // console.log(typeof institutionCategories)
+      //   // console.log('wybrana kategoria', $selectedCategories)
+      //   if ($selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
+      //     elementDiv.style.display = "block"
+      //   } else {
+      //     elementDiv.style.display = "none"
+      //   }
+      // })
+
     }
 
     /**
@@ -187,6 +221,8 @@ document.addEventListener("DOMContentLoaded", function() {
     init() {
       this.events();
       this.updateForm();
+
+
     }
 
     /**
@@ -222,6 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateForm() {
       this.$step.innerText = this.currentStep;
 
+
       // TODO: Validation
 
       this.slides.forEach(slide => {
@@ -229,8 +266,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (slide.dataset.step == this.currentStep) {
           slide.classList.add("active");
+
         }
+
+      // const $selectedCategories = [];
+      //
+      // this.$choiceElement.forEach(function (element) {
+      //   element.addEventListener("click", function (event) {
+      //     if (element.checked) {
+      //       $selectedCategories.push(event.target.value)
+      //     }
+      //   })
+      // })
       });
+      console.log(this.currentStep)
+
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
@@ -248,36 +298,63 @@ document.addEventListener("DOMContentLoaded", function() {
       this.currentStep++;
       this.updateForm();
     }
+
+
   }
   const form = document.querySelector(".form--steps");
+
   if (form !== null) {
     new FormSteps(form);
+
+    // moje do usuniecia
+    // const choiceElement = form.querySelectorAll("#choice");
+    // const institutionElements = form.querySelectorAll("#institution");
+    // this.$choiceElement = form.querySelectorAll("#choice");
+    // this.$selectedCategories = [];
+
+
+    // this.$choiceElement.forEach(function (element) {
+    //   element.addEventListener("click", function (event) {
+    //     if (element.checked) {
+    //       selectedCategories.push(event.target.value)
+    //     }
+    //   })
+    // })
+
+    // console.log(institutionElements)
+    //
+    // institutionElements.forEach(function (elementDiv){
+    //   const institutionCategories = elementDiv.dataset.id.split(" ")
+    //   if (selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
+    //     elementDiv.style.display = "block"
+    //   } else {
+    //     elementDiv.style.display = "none"
+    //   }
+    // })
+
+
+
   }
 
-  const choiceElement = document.querySelectorAll("#choice");
-  const institutionElements = document.querySelectorAll("#institution");
-  const categoryId = document.querySelectorAll("#category_id")
-  // institutionElement.style.display = "none";
-  // console.log(institutionElement)
-
-  const selectedCategories = [];
-
-  choiceElement.forEach(function (element){
-     element.addEventListener("click", function (event){
-       if (element.checked) {
-         // selectedCategories.push(parseInt(event.target.value));
-         selectedCategories.push((event.target.value));
-       }
-     })
-   })
-
-
-  institutionElements.forEach(function (elementDiv){
-    const institutionCategories = elementDiv.dataset.id.split(" ")
-    if (selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
-      elementDiv.style.display = "block"
-    } else {
-      elementDiv.style.display = "none"
-    }
-  })
+  // const choiceElement = document.querySelectorAll("#choice");
+  // const institutionElements = document.querySelectorAll("#institution");
+//   const selectedCategories = [];
+//
+//   choiceElement.forEach(function (element){
+//      element.addEventListener("click", function (event){
+//        if (element.checked) {
+//          selectedCategories.push(event.target.value);
+//        }
+//      })
+//    })
+//
+//
+//   institutionElements.forEach(function (elementDiv){
+//     const institutionCategories = elementDiv.dataset.id.split(" ")
+//     if (selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
+//       elementDiv.style.display = "block"
+//     } else {
+//       elementDiv.style.display = "none"
+//     }
+//   })
 });
