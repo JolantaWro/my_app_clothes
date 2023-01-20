@@ -118,3 +118,15 @@ class DonationAdd(LoginRequiredMixin, View):
 
         return render(request, 'form.html', cnx)
 
+class UserProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        user = request.user
+        if user.is_authenticated:
+            donations = Donation.objects.filter(user=request.user)
+
+            return render(request, 'profile.html', context={'user': user, 'donations': donations})
+        else:
+            message = f"Widok tylko dla zalogowanych"
+            return render(request, 'profile.html', context={'message': message})
+
+

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+    {% block background %} {% endblock %}
+    {% block start %}
+    {% endblock %}
+    {% block content %}
+        <section id="login" class="login-page">
+          <h2>Imię: {{ user.first_name }} Nazwisko: {{ user.last_name }}</h2>
+          <h2>Mail: {{ user.email }}</h2>
+
+          <h2>Dary</h2>
+            {% if donations|length == 0 %}
+                <h2>Brak przekazanych darów</h2>
+
+            {% else %}
+                <ol>
+                    {% for donation in donations %}
+                        <li>Dary: <br>
+                            <h3>Ilość przekazanych worków {{ donation.quantity }}</h3> <br>
+                            <h3>Gdzie przekazano {{ donation.institution }}</h3> <br>
+                            <h3>Kategoria daru {% for cat in donation.categories.all %}{{ cat.name }}{% endfor %}</h3> <br>
+                            <h3>Data przekazania {{ donation.pick_up_date }}</h3> <br>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+
+        </section>
+
+
+  <h2>{{ message }}</h2><br><br>
+
+    {% endblock %}
