@@ -357,4 +357,17 @@ document.addEventListener("DOMContentLoaded", function() {
 //       elementDiv.style.display = "none"
 //     }
 //   })
+  const givenElement = document.querySelectorAll(".given");
+  const givenDonationElement = document.querySelectorAll("#given_donation");
+
+   givenDonationElement.forEach(function (element){
+     element.addEventListener("click", function (event){
+       if (element.checked) {
+         element.style.color = "red";
+       }
+     })
+   })
+
+  console.log(givenElement)
+
 });

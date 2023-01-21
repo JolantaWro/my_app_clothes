@@ -18,7 +18,7 @@
                   Witaj {{ request.user }}
                   <ul class="dropdown">
                     <li><a href="{% url 'user_profile' %}">Profil</a></li>
-                    <li><a href="#">Ustawienia</a></li>
+                    <li><a href="{% url 'user_profile_change' request.user.id %}">Ustawienia</a></li>
                     <li><a href="{% url 'user_logout' %}">Wyloguj</a></li>
                       {% if user.is_superuser %}
                         <li><a href="/admin">Panel administracyjny</a></li>
