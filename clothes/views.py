@@ -2,10 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User, Permission
 from django.core.exceptions import ValidationError
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from clothes.models import Donation, Category, Institution
-from clothes.forms import FormRegister, FormLogin
+from clothes.forms import FormRegister, FormLogin, ChangeProfileForm
 
 
 class LandingPage(View):
@@ -56,6 +56,7 @@ class Register(View):
                 form.add_error(None, 'Wprowadzone różne hasła')
 
             new_user = User.objects.create_user(username=mail, password=password, email=mail)
+            change_user = Permission.objects.get(codename='change_user')
             add_donation = Permission.objects.get(codename='add_donation')
             view_donation = Permission.objects.get(codename='view_donation')
             change_donation = Permission.objects.get(codename='change_donation')
@@ -72,7 +73,7 @@ class Register(View):
 
             new_user.user_permissions.add(add_donation, view_donation, change_donation, delete_donation, add_category
                                           , view_category, change_category, delete_category, add_institution
-                                          , view_institution, change_institution, delete_institution)
+                                          , view_institution, change_institution, delete_institution, change_user)
 
             new_user.save()
             return redirect('user_login')
@@ -129,4 +130,31 @@ class UserProfileView(LoginRequiredMixin, View):
             message = f"Widok tylko dla zalogowanych"
             return render(request, 'profile.html', context={'message': message})
 
+class ChangeProfile(LoginRequiredMixin, View):
 
+    def get(self, request, user_id):
+        form = ChangeProfileForm()
+        return render(request, 'profile_change.html', {'form': form})
+
+    def post(self, request, user_id):
+        form = ChangeProfileForm(request.POST)
+        if form.is_valid():
+            user = get_object_or_404(User, pk=user_id)
+            password = form.cleaned_data.get('password')
+            password_new = form.cleaned_data.get('password_new')
+            password_new_repeat = form.cleaned_data.get('password_new_repeat')
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
+            mail = form.cleaned_data.get('mail')
+            userTest = authenticate(username=user.username, password=password)
+            if userTest is not None:
+                if password_new != password_new_repeat:
+                    form.add_error('Wprowadzone hasła różnią się')
+                user.first_name = first_name
+                user.last_name = last_name
+                user.email = mail
+                user.set_password = password_new
+                user.save()
+
+            return redirect('index')
+        return redirect('index')
