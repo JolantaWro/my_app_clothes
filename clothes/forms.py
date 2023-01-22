@@ -2,6 +2,8 @@ from django import forms
 
 
 class FormRegister(forms.Form):
+   first_name = forms.CharField(label='Imię')
+   last_name = forms.CharField(label='Nazwisko')
    password = forms.CharField(label='Hasło', max_length=100, widget=forms.PasswordInput)
    password_repeat = forms.CharField(label='Powtórz hasło', max_length=100, widget=forms.PasswordInput)
    mail = forms.EmailField(label='Email', max_length=100)

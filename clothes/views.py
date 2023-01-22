@@ -46,6 +46,8 @@ class Register(View):
     def post(self, request):
         form = FormRegister(request.POST)
         if form.is_valid():
+            first_name = form.cleaned_data.get('first_name')
+            last_name = form.cleaned_data.get('last_name')
             password = form.cleaned_data.get('password')
             password_repeat = form.cleaned_data.get('password_repeat')
             mail = form.cleaned_data.get('mail')
@@ -55,7 +57,7 @@ class Register(View):
             if password != password_repeat:
                 form.add_error(None, 'Wprowadzone różne hasła')
 
-            new_user = User.objects.create_user(username=mail, password=password, email=mail)
+            new_user = User.objects.create_user(username=mail, password=password, email=mail, first_name=first_name, last_name=last_name)
             change_user = Permission.objects.get(codename='change_user')
             add_donation = Permission.objects.get(codename='add_donation')
             view_donation = Permission.objects.get(codename='view_donation')

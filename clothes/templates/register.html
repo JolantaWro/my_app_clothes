@@ -9,6 +9,12 @@
       <h2>Załóż konto</h2>
       <form action="#" method="post">
           {% csrf_token %}
+        <div class="form-group">Imię:<br>
+            {{ form.first_name }}
+        </div>
+        <div class="form-group">Nazwisko:<br>
+            {{ form.last_name }}
+        </div>
         <div class="form-group">Email:<br>
             {{ form.mail }}
         </div>

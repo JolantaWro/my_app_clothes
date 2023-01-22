@@ -175,43 +175,40 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$stepInstructions = form.querySelectorAll(".form--steps-instructions p");
       const $stepForms = form.querySelectorAll("form > div");
       this.slides = [...this.$stepInstructions, ...$stepForms];
-      this.init();
 
-      // this.$choiceElement = form.querySelectorAll("#choice");
+      // this.init();
+
+      this.$choiceElement = form.querySelectorAll("#choice");
       // const choiceElement = form.querySelectorAll("#choice");
       // console.log(choiceElement)
 
-      // const $selectedCategories = [];
+      const $selectedCategories = [];
+      // console.log(this.$choiceElement)
 
 
 
+      this.$choiceElement.forEach(function (element) {
+        element.addEventListener("click", function (event) {
+          if (element.checked) {
+            $selectedCategories.push(event.target.value)
+          }
+        })
+      })
+      console.log($selectedCategories)
 
-      // this.$choiceElement.forEach(function (element) {
-      //   element.addEventListener("click", function (event) {
-      //     if (element.checked) {
-      //       $selectedCategories.push(event.target.value)
-      //     }
-      //   })
-      // })
 
+      this.$institutionElements = form.querySelectorAll("#institution");
 
-      // console.log($selectedCategories)
-      // this.$listChecked = $selectedCategories
-      // const institutionElements = form.querySelectorAll("#institution");
-      //
-      // institutionElements.forEach(function (elementDiv){
-      //   elementDiv.style.display = "block"
-      //   const institutionCategories = [...elementDiv.dataset.id.split(" ")]
-      //   // console.log('element div', elementDiv)
-      //   // console.log('jedna instytucja, data set id', institutionCategories)
-      //   // console.log(typeof institutionCategories)
-      //   // console.log('wybrana kategoria', $selectedCategories)
-      //   if ($selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
-      //     elementDiv.style.display = "block"
-      //   } else {
-      //     elementDiv.style.display = "none"
-      //   }
-      // })
+      this.$institutionElements.forEach(function (elementDiv){
+        elementDiv.style.display = "block"
+        const institutionCategories = elementDiv.dataset.id.split(" ")
+        if ($selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
+          elementDiv.style.display = "block"
+        } else {
+          elementDiv.style.display = "none"
+        }
+      })
+      this.init();
 
     }
 
@@ -266,24 +263,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (slide.dataset.step == this.currentStep) {
           slide.classList.add("active");
-
         }
-
-      // const $selectedCategories = [];
-      //
-      // this.$choiceElement.forEach(function (element) {
-      //   element.addEventListener("click", function (event) {
-      //     if (element.checked) {
-      //       $selectedCategories.push(event.target.value)
-      //     }
-      //   })
-      // })
       });
-      console.log(this.currentStep)
+      //
+      console.log('Przechodzenie między krokami', this.currentStep)
 
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
+
 
       // TODO: get data from inputs and show them in summary
     }
@@ -305,69 +293,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (form !== null) {
     new FormSteps(form);
-
-    // moje do usuniecia
-    // const choiceElement = form.querySelectorAll("#choice");
-    // const institutionElements = form.querySelectorAll("#institution");
-    // this.$choiceElement = form.querySelectorAll("#choice");
-    // this.$selectedCategories = [];
-
-
-    // this.$choiceElement.forEach(function (element) {
-    //   element.addEventListener("click", function (event) {
-    //     if (element.checked) {
-    //       selectedCategories.push(event.target.value)
-    //     }
-    //   })
-    // })
-
-    // console.log(institutionElements)
-    //
-    // institutionElements.forEach(function (elementDiv){
-    //   const institutionCategories = elementDiv.dataset.id.split(" ")
-    //   if (selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
-    //     elementDiv.style.display = "block"
-    //   } else {
-    //     elementDiv.style.display = "none"
-    //   }
-    // })
-
-
-
   }
 
-  // const choiceElement = document.querySelectorAll("#choice");
-  // const institutionElements = document.querySelectorAll("#institution");
-//   const selectedCategories = [];
-//
-//   choiceElement.forEach(function (element){
-//      element.addEventListener("click", function (event){
-//        if (element.checked) {
-//          selectedCategories.push(event.target.value);
-//        }
-//      })
-//    })
-//
-//
-//   institutionElements.forEach(function (elementDiv){
-//     const institutionCategories = elementDiv.dataset.id.split(" ")
-//     if (selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
-//       elementDiv.style.display = "block"
-//     } else {
-//       elementDiv.style.display = "none"
-//     }
-//   })
-  const givenElement = document.querySelectorAll(".given");
-  const givenDonationElement = document.querySelectorAll("#given_donation");
+  // this.$institutionElements.forEach(function (elementDiv){
+  //   elementDiv.style.display = "block"
+  //   const institutionCategories = elementDiv.dataset.id.split(" ")
+  //   if ($selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
+  //     elementDiv.style.display = "block"
+  //   } else {
+  //     elementDiv.style.display = "none"
+  //   }
+  // })
 
-   givenDonationElement.forEach(function (element){
-     element.addEventListener("click", function (event){
-       if (element.checked) {
-         element.style.color = "red";
-       }
-     })
-   })
-
-  console.log(givenElement)
 
 });
