@@ -176,38 +176,20 @@ document.addEventListener("DOMContentLoaded", function() {
       const $stepForms = form.querySelectorAll("form > div");
       this.slides = [...this.$stepInstructions, ...$stepForms];
 
-      // this.init();
+      const choiceElement = form.querySelectorAll("#choice");
+      this.selectedCategories = [];
 
-      this.$choiceElement = form.querySelectorAll("#choice");
-      // const choiceElement = form.querySelectorAll("#choice");
-      // console.log(choiceElement)
-
-      const $selectedCategories = [];
-      // console.log(this.$choiceElement)
-
-
-
-      this.$choiceElement.forEach(function (element) {
-        element.addEventListener("click", function (event) {
+      choiceElement.forEach((element) => {
+        element.addEventListener("click", (event) => {
           if (element.checked) {
-            $selectedCategories.push(event.target.value)
+            this.selectedCategories.push(event.target.value)
+          } else {
+            this.selectedCategories = this.selectedCategories.filter( cat => cat === event.target.value)
           }
         })
       })
-      console.log($selectedCategories)
+      // console.log(this.selectedCategories)
 
-
-      this.$institutionElements = form.querySelectorAll("#institution");
-
-      this.$institutionElements.forEach(function (elementDiv){
-        elementDiv.style.display = "block"
-        const institutionCategories = elementDiv.dataset.id.split(" ")
-        if ($selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
-          elementDiv.style.display = "block"
-        } else {
-          elementDiv.style.display = "none"
-        }
-      })
       this.init();
 
     }
@@ -266,8 +248,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
       //
-      console.log('Przechodzenie między krokami', this.currentStep)
-
+      // console.log('Przechodzenie między krokami', this.currentStep, this.selectedCategories)
+      if (this.currentStep === 3) {
+        const institutionElements = document.querySelectorAll("#institution");
+        institutionElements.forEach( (elementDiv) => {
+          const institutionCategories = elementDiv.dataset.id.split(" ")
+          if (this.selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
+            elementDiv.style.display = "block"
+          } else {
+            elementDiv.style.display = "none"
+          }
+        })
+      }
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
@@ -294,16 +286,5 @@ document.addEventListener("DOMContentLoaded", function() {
   if (form !== null) {
     new FormSteps(form);
   }
-
-  // this.$institutionElements.forEach(function (elementDiv){
-  //   elementDiv.style.display = "block"
-  //   const institutionCategories = elementDiv.dataset.id.split(" ")
-  //   if ($selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
-  //     elementDiv.style.display = "block"
-  //   } else {
-  //     elementDiv.style.display = "none"
-  //   }
-  // })
-
 
 });
