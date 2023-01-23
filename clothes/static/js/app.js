@@ -179,6 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const choiceElement = form.querySelectorAll("#choice");
       this.selectedCategories = [];
 
+
       choiceElement.forEach((element) => {
         element.addEventListener("click", (event) => {
           if (element.checked) {
@@ -191,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // console.log(this.selectedCategories)
 
       this.init();
+
 
     }
 
@@ -259,6 +261,24 @@ document.addEventListener("DOMContentLoaded", function() {
             elementDiv.style.display = "none"
           }
         })
+      }
+      if (this.currentStep === 4) {
+        console.log('step4')
+      }
+      if (this.currentStep === 5) {
+        const streetValue = document.querySelector('#street').value
+        const cityValue = document.querySelector('#city').value
+        const postcodeValue = document.querySelector('#postcode').value
+        const phoneValue = document.querySelector('#phone').value
+        const dataValue = document.querySelector('#data').value
+        const timeValue = document.querySelector('#time').value
+        const moreInfoValue = document.querySelector('#more_info').value
+
+
+        console.log('step5', streetValue, cityValue, postcodeValue, phoneValue, dataValue, timeValue, moreInfoValue)
+      }
+      if (this.currentStep === 6 ) {
+        console.log('step6')
       }
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
