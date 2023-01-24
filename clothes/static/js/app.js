@@ -238,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     updateForm() {
       this.$step.innerText = this.currentStep;
+      this.selectedInstitution = [];
 
 
       // TODO: Validation
@@ -261,6 +262,17 @@ document.addEventListener("DOMContentLoaded", function() {
             elementDiv.style.display = "none"
           }
         })
+        // const choiceInstitution = document.querySelectorAll("#institution_choice");
+        institutionElements.forEach((element) => {
+          element.addEventListener("click", (event) => {
+            if (element.checked) {
+              this.selectedInstitution.push(event.target.id)
+            } else {
+              this.selectedInstitution.push('Ma Serce')
+            }
+          })
+        })
+
       }
       if (this.currentStep === 4) {
         console.log('step4')
@@ -273,9 +285,32 @@ document.addEventListener("DOMContentLoaded", function() {
         const dataValue = document.querySelector('#data').value
         const timeValue = document.querySelector('#time').value
         const moreInfoValue = document.querySelector('#more_info').value
+        const bugs = document.querySelector('#bags').value
+
+        // const choiceInstitution = document.querySelectorAll("#institution_choice");
+        // this.selectedInstitution = [];
+        //
+        //
+        // choiceInstitution.forEach((element) => {
+        //   element.addEventListener("click", (event) => {
+        //     if (element.checked) {
+        //       this.selectedInstitution.push(event.target.id)
+        //     } else {
+        //       this.selectedInstitution.push('Ma Serce')
+        //     }
+        //   })
+        // })
+
+        // const checkPassword = () => {
+        //   if (pass.value !== ‘’) {
+        //     showMsg()}
+        // } else {
+        //   p.textContent = ‘Nie podałeś hasła”
+        //   p.style.color = ‘’
+        // }}
 
 
-        console.log('step5', streetValue, cityValue, postcodeValue, phoneValue, dataValue, timeValue, moreInfoValue)
+        console.log('step5', streetValue, cityValue, postcodeValue, phoneValue, dataValue, timeValue, moreInfoValue, bugs, this.selectedInstitution)
       }
       if (this.currentStep === 6 ) {
         console.log('step6')
