@@ -82,7 +82,7 @@
             <div class="form-group form-group--inline">
               <label>
                 Liczba 60l worków:
-                <input type="number" name="bags" step="1" min="1" />
+                <input type="number" name="bags" step="1" min="1" id="bags"/>
               </label>
             </div>
 
@@ -102,7 +102,7 @@
                   <input type="radio" name="organization" value="old" />
                   <span class="checkbox radio"></span>
                   <span class="description">
-                    <div class="title" id="category_id"> {{ institution }} </div>
+                    <div class="title" id="institution_choice"> {{ institution }} </div>
                     <div class="subtitle">
                       {{ institution.description }}
                     </div>
