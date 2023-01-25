@@ -277,6 +277,13 @@ document.addEventListener("DOMContentLoaded", function() {
       if (this.currentStep === 4) {
         console.log('step4')
       }
+      const showInputValue = (element, value) => {
+        if (element !== "") {
+          value.innerText = element
+        } else {
+          element.innerText = 'Brak danych'
+        }
+      }
       if (this.currentStep === 5) {
         const streetValue = document.querySelector('#street').value
         const cityValue = document.querySelector('#city').value
@@ -287,30 +294,25 @@ document.addEventListener("DOMContentLoaded", function() {
         const moreInfoValue = document.querySelector('#more_info').value
         const bugs = document.querySelector('#bags').value
 
-        // const choiceInstitution = document.querySelectorAll("#institution_choice");
-        // this.selectedInstitution = [];
-        //
-        //
-        // choiceInstitution.forEach((element) => {
-        //   element.addEventListener("click", (event) => {
-        //     if (element.checked) {
-        //       this.selectedInstitution.push(event.target.id)
-        //     } else {
-        //       this.selectedInstitution.push('Ma Serce')
-        //     }
-        //   })
-        // })
+        const spanBugs = document.querySelector('li.bag_view')
+        const spanInstitution = document.querySelector('li.institution_view')
+        const spanStreet = document.querySelector('li.street_view')
+        const spanCity = document.querySelector('li.city_view')
+        const spanPostcode = document.querySelector('li.postcode_view')
+        const spanPhone = document.querySelector('li.phone_view')
+        const spanData = document.querySelector('li.data_view')
+        const spanTime = document.querySelector('li.time_view')
+        const spanInfo = document.querySelector('li.more_info_view')
 
-        // const checkPassword = () => {
-        //   if (pass.value !== ‘’) {
-        //     showMsg()}
-        // } else {
-        //   p.textContent = ‘Nie podałeś hasła”
-        //   p.style.color = ‘’
-        // }}
+        showInputValue(bugs, spanBugs)
+        showInputValue(streetValue, spanStreet)
+        showInputValue(cityValue, spanCity)
+        showInputValue(postcodeValue, spanPostcode)
+        showInputValue(phoneValue, spanPhone)
+        showInputValue(dataValue, spanData)
+        showInputValue(timeValue, spanTime)
+        showInputValue(moreInfoValue, spanInfo)
 
-
-        console.log('step5', streetValue, cityValue, postcodeValue, phoneValue, dataValue, timeValue, moreInfoValue, bugs, this.selectedInstitution)
       }
       if (this.currentStep === 6 ) {
         console.log('step6')
