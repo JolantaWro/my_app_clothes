@@ -54,7 +54,7 @@
      <div class="form--steps-container">
        <div class="form--steps-counter">Krok <span>1</span>/5</div>
 <!--co z action-->
-       <form action="" method="post" id="form">
+       <form action="" method="post">
           {% csrf_token %}
          <!-- STEP 1: class .active is switching steps -->
          <div data-step="1" class="active">
@@ -82,7 +82,7 @@
            <div class="form-group form-group--inline">
              <label>
                Liczba 60l worków:
-               <input type="number" name="bags" step="1" min="1" id="bags"/>
+               <input type="number" name="bags" step="1" min="1" id="bags">
              </label>
            </div>
 

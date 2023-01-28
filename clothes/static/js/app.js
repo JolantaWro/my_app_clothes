@@ -175,10 +175,8 @@ document.addEventListener("DOMContentLoaded", function() {
      this.$stepInstructions = form.querySelectorAll(".form--steps-instructions p");
      const $stepForms = form.querySelectorAll("form > div");
      this.slides = [...this.$stepInstructions, ...$stepForms];
-
      const choiceElement = form.querySelectorAll("#choice");
      this.selectedCategories = [];
-     // this.selectedInstitution = [];
      this.selectedInstitution = "";
 
 
@@ -193,8 +191,6 @@ document.addEventListener("DOMContentLoaded", function() {
      })
 
      this.init();
-
-
    }
 
    /**
@@ -203,8 +199,6 @@ document.addEventListener("DOMContentLoaded", function() {
    init() {
      this.events();
      this.updateForm();
-
-
    }
 
    /**
@@ -230,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function() {
      });
 
      // Form submit
+     // this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
      this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
    }
 
@@ -239,7 +234,6 @@ document.addEventListener("DOMContentLoaded", function() {
     */
    updateForm() {
      this.$step.innerText = this.currentStep;
-     // this.selectedInstitution = [];
      this.institutionElements = document.querySelectorAll("#institution");
 
 
@@ -248,12 +242,12 @@ document.addEventListener("DOMContentLoaded", function() {
      this.slides.forEach(slide => {
        slide.classList.remove("active");
 
-       if (slide.dataset.step == this.currentStep) {
+       if (Number(slide.dataset.step) === this.currentStep) {
          slide.classList.add("active");
        }
      });
-     //
-     // console.log('Przechodzenie między krokami', this.currentStep, this.selectedCategories)
+
+
      if (this.currentStep === 3) {
        this.institutionElements.forEach( (elementDiv) => {
          const institutionCategories = elementDiv.dataset.id.split(" ")
@@ -269,25 +263,22 @@ document.addEventListener("DOMContentLoaded", function() {
          element.addEventListener("click", (event) => {
            if (element.checked) {
              this.selectedInstitution = event.target.value
-             // this.selectedInstitution.push(event.target.value)
-           } else {
-             // this.selectedInstitution.push('Masakra')
-             this.selectedInstitution = 'Masakra'
            }
          })
        })
      }
 
-     if (this.currentStep === 4) {
-       console.log('step4')
-       console.log(this.selectedInstitution)
+     this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
+     this.$step.parentElement.hidden = this.currentStep >= 6;
 
-     }
-     const showInputValue = (element, value) => {
-       if (element !== "") {
-         value.innerText = element
+
+     // TODO: get data from inputs and show them in summary
+
+     const showInputValue = (value, element) => {
+       if (value !== "") {
+         element.innerText = value
        } else {
-         value.innerText = 'Brak danych'
+         element.innerText = 'Nie wprowadzono informacji'
        }
      }
      if (this.currentStep === 5) {
@@ -298,7 +289,8 @@ document.addEventListener("DOMContentLoaded", function() {
        const dataValue = document.querySelector('#data').value
        const timeValue = document.querySelector('#time').value
        const moreInfoValue = document.querySelector('#more_info').value
-       const bugs = document.querySelector('#bags').value
+       this.bugs = document.querySelector('#bags').value
+
 
        const spanBugs = document.querySelector('li.bag_view')
        const spanInstitution = document.querySelector('li.institution_view')
@@ -310,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function() {
        const spanTime = document.querySelector('li.time_view')
        const spanInfo = document.querySelector('li.more_info_view')
 
-       showInputValue(bugs, spanBugs)
+       showInputValue(this.bugs, spanBugs)
        showInputValue(streetValue, spanStreet)
        showInputValue(cityValue, spanCity)
        showInputValue(postcodeValue, spanPostcode)
@@ -321,19 +313,6 @@ document.addEventListener("DOMContentLoaded", function() {
        showInputValue(this.selectedInstitution, spanInstitution)
 
      }
-     // if (this.currentStep === 5 ) {
-     //   const form = document.querySelector("#form");
-     //
-     //   form.addEventListener("submit", ev => {
-     //     form.submit()
-     //   })
-     // }
-
-     this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
-     this.$step.parentElement.hidden = this.currentStep >= 6;
-
-
-     // TODO: get data from inputs and show them in summary
    }
 
    /**
@@ -342,13 +321,10 @@ document.addEventListener("DOMContentLoaded", function() {
     * TODO: validation, send data to server
     */
    submit(e) {
-     e.preventDefault();
+     // e.preventDefault();
      this.currentStep++;
-     // sprawdz, walidacja, + kolejny if
      this.updateForm();
    }
-
-
  }
  const form = document.querySelector(".form--steps");
 

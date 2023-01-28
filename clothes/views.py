@@ -122,42 +122,40 @@ class DonationAdd(LoginRequiredMixin, View):
        return render(request, 'form.html', cnx)
 
    def post(self, request):
-       pass
-       # institution_name = request.POST.get("organization")
-       # institution = get_object_or_404(Institution, name=institution_name)
-       # print(institution)
-       # quantity = request.POST.get("bags")
-       # quantity_number = int(quantity)
-       # street_address = request.POST.get("address")
-       # city = request.POST.get("city")
-       # zip_code = request.POST.get("postcode")
-       # phone = request.POST.get("phone")
-       # phone_number = int(phone)
-       # print(phone_number, type(phone_number))
-       # pick_up_date = request.POST.get("data")
-       # date_test = pick_up_date.replace('-','.')
-       # pick_up_time = request.POST.get("time")
-       # time_test = pick_up_time.replace(':', '.')
-       # time_test = int(time_test)
-       # print(date_test)
-       # print(time_test)
-       # pick_up_comment = request.POST.get("more_info")
-       # print(quantity_number,street_address, city, zip_code, phone_number, pick_up_comment)
-       #
-       # donation_add = Donation.objects.create(quantity=quantity_number, institution=institution,
-       #                                        street_address=street_address, city=city, zip_code=zip_code,
-       #                                        phone_number=phone_number, pick_up_date=datetime.date(date_test),
-       #                                        pick_up_time=datetime.time(time_test), pick_up_comment=pick_up_comment)
+       categories_id = request.POST.getlist('categories')
+       categories = Category.objects.filter(id__in=categories_id).distinct()
+       institution_name = request.POST.get("organization")
+       institution = get_object_or_404(Institution, name=institution_name)
+       quantity = request.POST.get("bags")
+       street_address = request.POST.get("address")
+       city = request.POST.get("city")
+       zip_code = request.POST.get("postcode")
+       phone = request.POST.get("phone")
+       date = request.POST.get("data")
+       time = request.POST.get("time")
+       pick_up_comment = request.POST.get("more_info")
+       if quantity <= '':
+           quantity = 1
+       else:
+           quantity = int(quantity)
 
-       return redirect('donation_confirmation')
+
+       donation_add = Donation.objects.create(quantity=quantity, institution=institution,
+                                              street_address=street_address, city=city, zip_code=zip_code,
+                                              phone_number=int(phone), pick_up_date=date,
+                                              pick_up_time=time, pick_up_comment=pick_up_comment)
+       donation_add.user = request.user
+       donation_add.categories.add(*categories)
+       donation_add.save()
+
+       return render(request, 'form-confirmation.html')
 
 
 class DonationConfirmation(LoginRequiredMixin, View):
 
    def get(self, request):
 
-       return render(request, 'formConfirmation.html')
-
+       return render(request, 'form-confirmation.html')
 
 
 class UserProfileView(LoginRequiredMixin, View):
