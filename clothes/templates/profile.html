@@ -18,18 +18,22 @@
                         <h3>Gdzie przekazano: {{ donation.institution }}</h3>
                         <h3>Kategoria daru: {% for cat in donation.categories.all %}{{ cat.name }}{% endfor %}</h3>
                         <h3>Data przekazania: {{ donation.pick_up_date }}</h3>
-                        <div>
-                            <input class="form-check-input" type="checkbox" id="given_donation">
-                            <label class="form-check-label" for="given_donation">Czy dar został odebrany</label>
-                        </div>
+                        <form action="" method="post" >
+                            {% csrf_token %}
+                            <div>
+                                <label class="form-check-label" for="given_donation"><h3>Czy dar został odebrany:</h3></label><br>ID Daru:
+                                <input class="form-check-input" type="submit" id="given_donation" name="given_donation" value="{{ donation.id }}">
+                            </div>
+                        </form>
+                        <br>
+                        <br>
                     </li>
                     {% endfor %}
                 </ol>
             {% endif %}`
           </div>
         </section>
-
-
   <h2>{{ message }}</h2><br><br>
+
 
     {% endblock %}

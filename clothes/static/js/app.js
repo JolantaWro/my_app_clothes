@@ -179,17 +179,21 @@ document.addEventListener("DOMContentLoaded", function() {
      this.selectedCategories = [];
      this.selectedInstitution = "";
 
+     this.nextBtn = form.querySelector(".active .next-step")
+     this.nextBtn.style.display = "none"
+
+     this.errorForm = form.querySelector(".errorFormText")
 
      choiceElement.forEach((element) => {
        element.addEventListener("click", (event) => {
          if (element.checked) {
            this.selectedCategories.push(event.target.value)
+           this.nextBtn.style.display = "block"
          } else {
            this.selectedCategories = this.selectedCategories.filter( cat => cat === event.target.value)
          }
        })
      })
-
      this.init();
    }
 
@@ -224,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function() {
      });
 
      // Form submit
-     // this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
      this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
    }
 
@@ -237,6 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
      this.institutionElements = document.querySelectorAll("#institution");
 
 
+
      // TODO: Validation
 
      this.slides.forEach(slide => {
@@ -247,8 +251,8 @@ document.addEventListener("DOMContentLoaded", function() {
        }
      });
 
-
      if (this.currentStep === 3) {
+
        this.institutionElements.forEach( (elementDiv) => {
          const institutionCategories = elementDiv.dataset.id.split(" ")
          if (this.selectedCategories.some(selectedCategory => institutionCategories.includes(selectedCategory))) {
@@ -279,6 +283,7 @@ document.addEventListener("DOMContentLoaded", function() {
          element.innerText = value
        } else {
          element.innerText = 'Nie wprowadzono informacji'
+         this.errorForm.style.display = "block"
        }
      }
      if (this.currentStep === 5) {
@@ -309,9 +314,8 @@ document.addEventListener("DOMContentLoaded", function() {
        showInputValue(phoneValue, spanPhone)
        showInputValue(dataValue, spanData)
        showInputValue(timeValue, spanTime)
-       showInputValue(moreInfoValue, spanInfo)
        showInputValue(this.selectedInstitution, spanInstitution)
-
+       spanInfo.innerText = moreInfoValue
      }
    }
 
