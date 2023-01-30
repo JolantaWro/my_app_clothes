@@ -1825,8 +1825,16 @@ footer .bottom-line--icons a img {
 .form--steps form .summary ul li .icon-hand {
   background-image: url(../images/icon-hand.png);
 }
-.given {
-  color: red;
+#given_donation {
+  background-color: darkseagreen;
+  color: darkseagreen;
+}
+
+.to_given {
+
+}
+.archive {
+  color: silver;
 }
 
 .errorFormText {
