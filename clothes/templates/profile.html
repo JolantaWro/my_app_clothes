@@ -1,39 +1,50 @@
 {% extends 'base.html' %}
 
-    {% block background %} {% endblock %}
-    {% block start %}
-    {% endblock %}
-    {% block content %}
-        <section id="login" class="login-page">
-          <h2>Imię: {{ user.first_name }} <br> Nazwisko: {{ user.last_name }} <br> Mail: {{ user.email }} </h2>
-          <div>
-            <h2>Dary:</h2>
-            {% if donations|length == 0 %}
-                <h2>Brak przekazanych darów</h2>
-            {% else %}
-                <ol>
-                    {% for donation in donations %}
-                    <li>Dar: <br>
-                        <h3>Ilość przekazanych worków: {{ donation.quantity }}</h3>
-                        <h3>Gdzie przekazano: {{ donation.institution }}</h3>
-                        <h3>Kategoria daru: {% for cat in donation.categories.all %}{{ cat.name }}{% endfor %}</h3>
-                        <h3>Data przekazania: {{ donation.pick_up_date }}</h3>
-                        <form action="" method="post" >
-                            {% csrf_token %}
-                            <div>
-                                <label class="form-check-label" for="given_donation"><h3>Czy dar został odebrany:</h3></label><br>ID Daru:
-                                <input class="form-check-input" type="submit" id="given_donation" name="given_donation" value="{{ donation.id }}">
-                            </div>
-                        </form>
-                        <br>
-                        <br>
-                    </li>
-                    {% endfor %}
-                </ol>
-            {% endif %}`
-          </div>
-        </section>
-  <h2>{{ message }}</h2><br><br>
+   {% block background %} {% endblock %}
+   {% block start %}
+   {% endblock %}
+   {% block content %}
+       <section id="login" class="login-page">
+         <h2>Imię: {{ user.first_name }} <br> Nazwisko: {{ user.last_name }} <br> Mail: {{ user.email }} </h2>
+         <div>
+           <h2>Dary:</h2>
+           {% if donations|length == 0 %}
+               <h2>Brak przekazanych darów</h2>
 
+           {% else %}
 
-    {% endblock %}
+             {% for donation in donations %}
+               {% if donation.is_taken == False %}
+                   <div class="to_given">
+                           <h3>Ilość przekazanych worków: {{ donation.quantity }}</h3>
+                           <h3>Gdzie przekazano: {{ donation.institution }}</h3>
+                           <h3>Kategoria daru: {% for cat in donation.categories.all %}{{ cat.name }}{% endfor %}</h3>
+                           <h3>Data przekazania: {{ donation.pick_up_date }}</h3>
+                           <form action="" method="post" style="margin-top: 0px;">
+                               {% csrf_token %}
+                               <div>
+                                   <label for="given_donation"><h3>Potwierdz odbiór daru:</h3></label>
+                                   <input type="submit" id="given_donation" name="given_donation" value="{{ donation.id }}">
+                               </div>
+                           </form>
+                            <h3>.................................................</h3>
+                   </div>
+               {% endif %}
+               {% if donation.is_taken == True %}
+                   <div class="archive">
+                           <h3>Ilość przekazanych worków: {{ donation.quantity }}</h3>
+                           <h3>Gdzie przekazano: {{ donation.institution }}</h3>
+                           <h3>Kategoria daru: {% for cat in donation.categories.all %}{{ cat.name }}{% endfor %}</h3>
+                           <h3>Data przekazania: {{ donation.pick_up_date }}</h3>
+                           <h3>Dary przekazane</h3>
+                           <h3>.................................................</h3>
+                   </div>
+               {% endif %}
+             {% endfor %}
+           {% endif %}
+         </div>
+       </section>
+ <h2>{{ message }}</h2><br><br>
+
+   {% endblock %}
+
