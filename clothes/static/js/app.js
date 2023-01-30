@@ -180,8 +180,8 @@ class FormSteps {
     this.selectedInstitution = "";
     this.nextBtn = form.querySelector(".active .next-step")
     this.nextBtn.style.display = "none"
-
     this.errorForm = form.querySelector(".errorFormText")
+
 
     choiceElement.forEach((element) => {
       element.addEventListener("click", (event) => {
@@ -251,6 +251,10 @@ class FormSteps {
     });
 
     if (this.currentStep === 3) {
+      this.bugs = document.querySelector('#bags').value
+      if (this.bugs === "0") {
+        this.errorForm.style.display = "block"
+      }
 
       this.institutionElements.forEach( (elementDiv) => {
         const institutionCategories = elementDiv.dataset.id.split(" ")
@@ -286,6 +290,7 @@ class FormSteps {
       }
     }
     if (this.currentStep === 5) {
+
       const streetValue = document.querySelector('#street').value
       const cityValue = document.querySelector('#city').value
       const postcodeValue = document.querySelector('#postcode').value
@@ -293,7 +298,7 @@ class FormSteps {
       const dataValue = document.querySelector('#data').value
       const timeValue = document.querySelector('#time').value
       const moreInfoValue = document.querySelector('#more_info').value
-      this.bugs = document.querySelector('#bags').value
+      // this.bugs = document.querySelector('#bags').value
 
 
       const spanBugs = document.querySelector('li.bag_view')
@@ -305,6 +310,10 @@ class FormSteps {
       const spanData = document.querySelector('li.data_view')
       const spanTime = document.querySelector('li.time_view')
       const spanInfo = document.querySelector('li.more_info_view')
+
+      if (this.bugs !== "0") {
+        this.errorForm.style.display = "none"
+      }
 
       showInputValue(streetValue, spanStreet)
       showInputValue(cityValue, spanCity)
